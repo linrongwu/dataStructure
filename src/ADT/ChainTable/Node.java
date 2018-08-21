@@ -90,6 +90,8 @@ public class Node {
 		Node head = new Node();
 		head.Insert(1, 0);
 		head.Insert(2, 1);
+		head.Insert(3, 2);
+		head.delete(2);
 		Node pNode = head;
 		while(null!=pNode) {
 			System.out.println(pNode.getData());
