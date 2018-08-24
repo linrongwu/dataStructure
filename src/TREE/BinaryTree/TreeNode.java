@@ -35,15 +35,7 @@ public class TreeNode {
 		this.rNode=null;
 	}
 	
-	public void dellNode(TreeNode node) {
-		this.lNode=null;
-	}
-	
-	public void delrNode(TreeNode node) {
-		this.rNode=null;
-	}
-	
-	
+
 	public int buildTreeByPre(int index,String string) {
 		if(index>=string.length()) {
 			return 0;
