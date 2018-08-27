@@ -172,7 +172,7 @@ public class BinarySortTree {
 			}
 		}
 		else {
-			BinarySortTree mTree=this.findMin(dTree);
+			BinarySortTree mTree=this.findMin(dTree.getrNode());
 			dTree.delNode(mTree.getData());
 			dTree.setData(mTree.getData());
 		}
@@ -194,6 +194,18 @@ public class BinarySortTree {
 		 System.out.println("-");
 		 bTree.OrderByPre();
 		 System.out.println("-");
+		 System.out.println("请问要删除哪个节点数据：输入-1结束");
+		 int deldata = sc.nextInt();
+		 while(deldata!=-1) {
+			 bTree.delNode(deldata);
+			 bTree.OrderByIn();
+			 System.out.println("-");
+			 bTree.OrderByPost();
+			 System.out.println("-");
+			 bTree.OrderByPre();
+			 System.out.println("-");
+			 deldata = sc.nextInt();
+		 }
 	}
 
 }
