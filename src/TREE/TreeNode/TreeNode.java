@@ -1,4 +1,4 @@
-package TREE.BinaryTree;
+package TREE.TreeNode;
 
 public class TreeNode {
 	public char getData() {
