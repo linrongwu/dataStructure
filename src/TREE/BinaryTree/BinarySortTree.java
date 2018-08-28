@@ -2,8 +2,6 @@ package TREE.BinaryTree;
 
 import java.util.Scanner;
 
-import ADT.ChainTable.Node;
-
 public class BinarySortTree {
 	
 	public int getData() {
