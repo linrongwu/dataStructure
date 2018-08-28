@@ -133,7 +133,30 @@ public class AVL {
 					}
 				}
 				else {
-					DoubleRotateWithLeft();
+					if(findNodePre(this.getData())==null) {
+						this.setlNode(this.getlNode().SingleRotateWithRight());
+						
+						AVL zAvl=this.getrNode();
+						AVL k1 = new AVL();
+						k1=this.getlNode();
+						this.setlNode(k1.getlNode());
+						k1.setlNode(k1.getrNode());
+						k1.setrNode(zAvl);
+						this.setrNode(k1);
+						int k2data = this.data;
+						this.data=k1.getData();
+						k1.setData(k2data);
+						k1.setHeight(Math.max(Height(k1.getrNode()), Height(k1.getlNode()))+1);
+						this.setHeight(Math.max(k1.getHeight(), Height(this.getlNode()))+1);
+					}else {
+					AVL dTreePre=findNodePre(this.getData());
+					if(dTreePre.getData()<this.getData()) {
+						dTreePre.setrNode(DoubleRotateWithLeft());
+					}else {
+						dTreePre.setlNode(DoubleRotateWithLeft());
+					}
+					}
+					
 				}
 				
 			}
@@ -146,12 +169,6 @@ public class AVL {
 			if((Height(this.getrNode())-Height(this.getlNode()))==2) {
 				if(data>=this.getrNode().getData()) {
 					if(findNodePre(this.getData())==null) {
-						/*AVL k1 = new AVL();
-						k1=this.getrNode();
-						this.setrNode(k1.getlNode());
-						k1.setlNode(this);
-						this.height=Math.max(Height(this.getrNode()), Height(this.getlNode()))+1;
-						k1.setHeight(Math.max(this.getHeight(), Height(k1.getrNode()))+1);*/
 						AVL zAvl=this.getlNode();
 						AVL k1 = new AVL();
 						k1=this.getrNode();
@@ -175,7 +192,30 @@ public class AVL {
 					}
 				}
 				else {
-					DoubleRotateWithRight();
+					if(findNodePre(this.getData())==null) {
+						this.setrNode(this.getrNode().SingleRotateWithLeft());
+						
+						AVL zAvl=this.getlNode();
+						AVL k1 = new AVL();
+						k1=this.getrNode();
+						this.setrNode(k1.getrNode());
+						k1.setrNode(k1.getlNode());
+						k1.setlNode(zAvl);
+						this.setlNode(k1);
+						int k2data = this.data;
+						this.data=k1.getData();
+						k1.setData(k2data);
+						k1.setHeight(Math.max(Height(k1.getrNode()), Height(k1.getlNode()))+1);
+						this.setHeight(Math.max(k1.getHeight(), Height(this.getrNode()))+1);
+					}
+					else {
+					AVL dTreePre=findNodePre(this.getData());
+					if(dTreePre.getData()<this.getData()) {
+						dTreePre.setrNode(DoubleRotateWithRight());
+					}else {
+						dTreePre.setlNode(DoubleRotateWithRight());
+					}
+					}
 				}
 				
 			}
@@ -317,18 +357,6 @@ public class AVL {
 		 System.out.println("-");
 		 bTree.OrderByPre();
 		 System.out.println("-");
-		 System.out.println("请问要删除哪个节点数据：输入-1结束");
-		 int deldata = sc.nextInt();
-		 while(deldata!=-1) {
-			 bTree.delNode(deldata);
-			 bTree.OrderByIn();
-			 System.out.println("-");
-			 bTree.OrderByPost();
-			 System.out.println("-");
-			 bTree.OrderByPre();
-			 System.out.println("-");
-			 deldata = sc.nextInt();
-		 }
 	}
 
 }
