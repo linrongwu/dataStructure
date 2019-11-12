@@ -2,7 +2,7 @@ package Sort;
 
 public class Sort {
 	
-	
+	//插入排序
 	public static void insertSort(int[] a) {
 		int lenght=a.length;
 		for(int i=1;i<lenght;i++) {
@@ -14,7 +14,8 @@ public class Sort {
 			a[j]=data;
 		}
 	}
-	
+
+	//冒泡排序
 	public static void bubbleSort(int[] a) {
 		int lenght=a.length;
 		for(int i=0;i<lenght;i++) {
@@ -28,7 +29,8 @@ public class Sort {
 			}
 		}
 	}
-	
+
+	//选择排序
 	public static void SelectSort(int[] a) {
 		int lenght=a.length;
 		int max=a[0];
@@ -46,7 +48,8 @@ public class Sort {
 			index=0;
 		}
 	}
-	
+
+	//希尔排序
 	public static void shellSort(int[] a) {
 		int add=a.length;
 		add=(add/2)+1;
