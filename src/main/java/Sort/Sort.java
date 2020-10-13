@@ -4,46 +4,46 @@ public class Sort {
 	
 	//插入排序
 	public static void insertSort(int[] a) {
-		int lenght=a.length;
-		for(int i=1;i<lenght;i++) {
+		int length=a.length;
+		for(int i=1;i<length;i++) {//a[0] 已排序
 			int data=a[i];
-			int j;
-			for(j=i;j>=1&&a[j-1]>data;j--) {
-				a[j]=a[j-1];
+			int v;
+			for(v=i;v>=1&&a[v-1]>data;v--) {//从v位置开始往回比较大小，直到0或第一个小于data的位置插入
+				a[v]=a[v-1];
 			}
-			a[j]=data;
+			a[v]=data;
 		}
 	}
 
 	//冒泡排序
 	public static void bubbleSort(int[] a) {
-		int lenght=a.length;
-		for(int i=0;i<lenght;i++) {
-			for(int j=0;j<lenght-i-1;j++) {
-				if(a[j]>a[j+1]) {
-					int temp=a[j+1];
-					a[j+1]=a[j];
-					a[j]=temp;
-					
+		int length=a.length;
+		for(int i=0;i<length;i++) { //这里的i 代表需要循环的次数
+			for(int v=0;v<length-i-1;v++) {//开始冒泡
+				if(a[v]>a[v+1]) {
+					int temp=a[v+1];
+					a[v+1]=a[v];
+					a[v]=temp;
 				}
 			}
 		}
 	}
 
 	//选择排序
-	public static void SelectSort(int[] a) {
-		int lenght=a.length;
+	public static void selectSort(int[] a) {
+		int length=a.length;
 		int max=a[0];
 		int index=0;
-		int j;
-		for(int i=0;i<lenght;i++) {
-			for(j=0;j<lenght-i;j++) {
-				index=a[j]>max?j:index;
-				max=a[j]>max?a[j]:max;
+		int v;
+		for(int i=0;i<length;i++) {//这里的i 代表需要循环的次数
+			for(v=0;v<length-i;v++) {
+				index=a[v]>max?v:index;
+				max=a[v]>max?a[v]:max;
 			}
-			int temp=a[j-1];
-			a[j-1]=max;
+			int temp=a[v-1];//这里-1 v等于了length-i
+			a[v-1]=max;
 			a[index]=temp;
+
 			max=a[0];
 			index=0;
 		}
@@ -52,7 +52,7 @@ public class Sort {
 	//希尔排序
 	public static void shellSort(int[] a) {
 		int add=a.length;
-		add=(add/2)+1;
+		add=(add/2)+1;//add为增量 增量为1 最后一次
 		while(add>0) {
 			for(int i=0;i+add<a.length;i++) {
 				if(a[i]>a[i+add]) {
@@ -74,13 +74,13 @@ public class Sort {
 	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] data= {5,4,3,2,1};
-		//insertSort(data);
-		//bubbleSort(data);
-		//SelectSort(data);
-		shellSort(data);
-		show(data);
+
+//		int[] data= {1,2,3,4,5};
+//		insertSort(data);
+//		bubbleSort(data);
+//		selectSort(data);
+//		shellSort(data);
+//		show(data);
 
 }
 	}
