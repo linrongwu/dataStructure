@@ -52,7 +52,7 @@ public class Sort {
 	//希尔排序
 	public static void shellSort(int[] a) {
 		int add=a.length;
-		add=(add/2)+1;//add为增量 增量为1 最后一次
+		add=add/2;//add为增量 增量为1 最后一次
 		while(add>0) {
 			for(int i=0;i+add<a.length;i++) {
 				if(a[i]>a[i+add]) {
@@ -67,6 +67,9 @@ public class Sort {
 
 	//快速排序
 	public static void quickSort(int[] a,int b,int e){
+		if(b>=e){
+			return;
+		}
 		int mid = a[b];//以起始点为目标值
 		int begin = b;
 		int end = e;
@@ -77,9 +80,37 @@ public class Sort {
 			a[end] = a[begin];
 			a[begin] = temp;
 		}
-		if(b<begin){quickSort(a,b,begin);}
-		if(begin+1<e){quickSort(a,begin+1,e);}//防止目标值本身就是最小值，死循环，故 判断begin+1
+		quickSort(a,b,begin-1);
+		quickSort(a,begin==b?begin+1:begin,e);//begin+1 防止目标值就是最小值 递归溢出
 	}
+
+	//归并排序
+//	public static void mergeSort(int[] a){
+//		int length = a.length;
+//		if(length>1){
+//			int length_2 = length/2;
+//
+//			int[] subL = new int[length_2];
+//			System.arraycopy(a,0,subL,0,length_2);
+//			mergeSort(subL);
+//
+//			int[] subR = new int[length-length_2];
+//			System.arraycopy(a,length_2,subR,0,length-length_2);
+//			mergeSort(subR);
+//
+//			int cursorL = 0;
+//			int cursorR = 0;
+//			for(int i=0;i<length;i++){
+//				if(cursorR==length-length_2 ||subL[cursorL]<=subR[cursorR]){
+//					a[i]=subL[cursorL];
+//					cursorL++;
+//				}else if(cursorL==length_2 ||subL[cursorL]>subR[cursorR]){
+//					a[i]=subR[cursorR];
+//					cursorR++;
+//				}
+//			}
+//		}
+//	}
 
 	
 	public static void show(int[] data) {
@@ -90,13 +121,15 @@ public class Sort {
 	
 
 	public static void main(String[] args) {
-		int[] data= {5,3,3,2,1};
+		int[] data= {6,5,4,3,3,3,4,2,14,1};
 //		insertSort(data);
 //		bubbleSort(data);
 //		selectSort(data);
-//		shellSort(data);
-		quickSort(data,0,data.length-1);
-		show(data);
+//		quickSort(data,0,data.length-1);
 
+ 		shellSort(data);
+
+//		mergeSort(data);
+		show(data);
 }
 	}
