@@ -65,6 +65,22 @@ public class Sort {
 		}
 	}
 
+	//快速排序
+	public static void quickSort(int[] a,int b,int e){
+		int mid = a[b];//以起始点为目标值
+		int begin = b;
+		int end = e;
+		while(begin<end){
+			while(a[begin]<mid && begin<end){begin++;}
+			while(a[end]>=mid && begin<end){end--;}
+			int temp = a[end];
+			a[end] = a[begin];
+			a[begin] = temp;
+		}
+		if(b<begin){quickSort(a,b,begin);}
+		if(begin+1<e){quickSort(a,begin+1,e);}//防止目标值本身就是最小值，死循环，故 判断begin+1
+	}
+
 	
 	public static void show(int[] data) {
 		for(int i=0;i<data.length;i++) {
@@ -74,13 +90,13 @@ public class Sort {
 	
 
 	public static void main(String[] args) {
-
-//		int[] data= {1,2,3,4,5};
+		int[] data= {5,3,3,2,1};
 //		insertSort(data);
 //		bubbleSort(data);
 //		selectSort(data);
 //		shellSort(data);
-//		show(data);
+		quickSort(data,0,data.length-1);
+		show(data);
 
 }
 	}
