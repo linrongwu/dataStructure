@@ -85,32 +85,32 @@ public class Sort {
 	}
 
 	//归并排序
-//	public static void mergeSort(int[] a){
-//		int length = a.length;
-//		if(length>1){
-//			int length_2 = length/2;
-//
-//			int[] subL = new int[length_2];
-//			System.arraycopy(a,0,subL,0,length_2);
-//			mergeSort(subL);
-//
-//			int[] subR = new int[length-length_2];
-//			System.arraycopy(a,length_2,subR,0,length-length_2);
-//			mergeSort(subR);
-//
-//			int cursorL = 0;
-//			int cursorR = 0;
-//			for(int i=0;i<length;i++){
-//				if(cursorR==length-length_2 ||subL[cursorL]<=subR[cursorR]){
-//					a[i]=subL[cursorL];
-//					cursorL++;
-//				}else if(cursorL==length_2 ||subL[cursorL]>subR[cursorR]){
-//					a[i]=subR[cursorR];
-//					cursorR++;
-//				}
-//			}
-//		}
-//	}
+	public static void mergeSort(int[] a){
+		int length = a.length;
+		if(length>1){
+			int length_2 = length/2;
+
+			int[] subL = new int[length_2];
+			System.arraycopy(a,0,subL,0,length_2);
+			mergeSort(subL);
+
+			int[] subR = new int[length-length_2];
+			System.arraycopy(a,length_2,subR,0,length-length_2);
+			mergeSort(subR);
+
+			int cursorL = 0;
+			int cursorR = 0;
+			for(int i=0;i<length;i++){
+				if(cursorR==length-length_2 || (cursorL<length_2 && subL[cursorL]<=subR[cursorR])){
+					a[i]=subL[cursorL];
+					cursorL++;
+				}else if(cursorL==length_2 ||  (cursorR<length-length_2) && subL[cursorL]>subR[cursorR]){
+					a[i]=subR[cursorR];
+					cursorR++;
+				}
+			}
+		}
+	}
 
 	
 	public static void show(int[] data) {
@@ -126,10 +126,10 @@ public class Sort {
 //		bubbleSort(data);
 //		selectSort(data);
 //		quickSort(data,0,data.length-1);
+//		mergeSort(data);
 
  		shellSort(data);
 
-//		mergeSort(data);
 		show(data);
 }
 	}
