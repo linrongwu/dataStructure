@@ -8,7 +8,7 @@ public class Sort {
 		for(int i=1;i<length;i++) {//a[0] 已排序
 			int data=a[i];
 			int v;
-			for(v=i;v>=1&&a[v-1]>data;v--) {//从v位置开始往回比较大小，直到0或第一个小于data的位置插入
+			for(v=i;v>=1&&a[v-1]>data;v--) {//从v位置开始往回比较大小,直到0或第一个小于data的位置插入
 				a[v]=a[v-1];
 			}
 			a[v]=data;
@@ -54,11 +54,15 @@ public class Sort {
 		int add=a.length;
 		add=add/2;//add为增量 增量为1 最后一次
 		while(add>0) {
-			for(int i=0;i+add<a.length;i++) {
-				if(a[i]>a[i+add]) {
-					int temp=a[i+add];
-					a[i+add]=a[i];
-					a[i]=temp;
+			for(int i=0;i<add;i++){
+				for(int v=add+i;v<a.length;v+=add){ //内部是个插入排序
+					int temp = a[v];
+					int beforeV = v-add;
+					while(beforeV>=0 && a[beforeV]>temp) {
+						a[beforeV+add]=a[beforeV];
+						beforeV -=add;
+					}
+					a[beforeV + add] = temp;
 				}
 			}
 			add=add/2;
@@ -127,8 +131,7 @@ public class Sort {
 //		selectSort(data);
 //		quickSort(data,0,data.length-1);
 //		mergeSort(data);
-
- 		shellSort(data);
+// 		shellSort(data);
 
 		show(data);
 }
