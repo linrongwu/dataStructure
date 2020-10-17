@@ -1,5 +1,7 @@
 package Sort;
 
+import TREE.BinarySortTree;
+
 public class Sort {
 	
 	//插入排序
@@ -116,6 +118,15 @@ public class Sort {
 		}
 	}
 
+	//堆排序
+	public static void heapSort(int[] a){
+		BinarySortTree bTree=new BinarySortTree();
+		for(int data:a){
+			bTree.buildTree(data);
+		}
+		bTree.OrderByIn();
+	}
+
 	
 	public static void show(int[] data) {
 		for(int i=0;i<data.length;i++) {
@@ -132,6 +143,7 @@ public class Sort {
 //		quickSort(data,0,data.length-1);
 //		mergeSort(data);
 // 		shellSort(data);
-		show(data);
+//		show(data);
+		heapSort(data);
 	}
 }

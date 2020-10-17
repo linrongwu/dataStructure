@@ -69,7 +69,7 @@ public class BinarySortTree {
 		if(null!=this.getlNode()) {
 		this.getlNode().OrderByIn();
 		}
-		System.out.print(this.getData());
+		System.out.println(this.getData());
 		if(null!=this.getrNode()) {
 		this.getrNode().OrderByIn();
 		}
