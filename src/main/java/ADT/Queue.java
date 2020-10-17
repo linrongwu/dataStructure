@@ -1,7 +1,4 @@
-package ADT.Queue;
-
-import ADT.ChainTable.Node;
-import ADT.Stack.Stack;
+package ADT;
 
 public class Queue {
 	private Node node;

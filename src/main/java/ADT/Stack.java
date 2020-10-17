@@ -1,6 +1,4 @@
-package ADT.Stack;
-
-import ADT.ChainTable.Node;
+package ADT;
 
 public class Stack {
 	private Node node;

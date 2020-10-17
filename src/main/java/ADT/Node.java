@@ -1,4 +1,4 @@
-package ADT.ChainTable;
+package ADT;
 
 public class Node {
 	public Node getNode() {

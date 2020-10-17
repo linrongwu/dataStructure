@@ -125,14 +125,13 @@ public class Sort {
 	
 
 	public static void main(String[] args) {
-		int[] data= {6,5,4,3,3,3,4,2,14,1};
+		int[] data= {55,2,6,4,32,12,9,73,26,37};
 //		insertSort(data);
 //		bubbleSort(data);
 //		selectSort(data);
 //		quickSort(data,0,data.length-1);
 //		mergeSort(data);
 // 		shellSort(data);
-
 		show(data);
-}
 	}
+}

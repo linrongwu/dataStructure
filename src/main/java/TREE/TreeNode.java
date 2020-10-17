@@ -1,4 +1,4 @@
-package TREE.TreeNode;
+package TREE;
 
 public class TreeNode {
 	public char getData() {
