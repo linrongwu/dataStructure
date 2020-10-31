@@ -1,10 +1,12 @@
-package Sort;
+package sort;
 
-import TREE.BinarySortTree;
+import tree.BinarySortTree;
 
-public class Sort {
-	
-	//插入排序
+public final  class Sort {
+
+    private Sort(){};
+
+    //插入排序
 	public static void insertSort(int[] a) {
 		int length=a.length;
 		for(int i=1;i<length;i++) {//a[0] 已排序
@@ -94,23 +96,23 @@ public class Sort {
 	public static void mergeSort(int[] a){
 		int length = a.length;
 		if(length>1){
-			int length_2 = length/2;
+			int length2 = length/2;
 
-			int[] subL = new int[length_2];
-			System.arraycopy(a,0,subL,0,length_2);
+			int[] subL = new int[length2];
+			System.arraycopy(a,0,subL,0,length2);
 			mergeSort(subL);
 
-			int[] subR = new int[length-length_2];
-			System.arraycopy(a,length_2,subR,0,length-length_2);
+			int[] subR = new int[length-length2];
+			System.arraycopy(a,length2,subR,0,length-length2);
 			mergeSort(subR);
 
 			int cursorL = 0;
 			int cursorR = 0;
 			for(int i=0;i<length;i++){
-				if(cursorR==length-length_2 || (cursorL<length_2 && subL[cursorL]<=subR[cursorR])){
+				if(cursorR==length-length2 || (cursorL<length2 && subL[cursorL]<=subR[cursorR])){
 					a[i]=subL[cursorL];
 					cursorL++;
-				}else if(cursorL==length_2 ||  (cursorR<length-length_2) && subL[cursorL]>subR[cursorR]){
+				}else if(cursorL==length2 ||  (cursorR<length-length2) && subL[cursorL]>subR[cursorR]){
 					a[i]=subR[cursorR];
 					cursorR++;
 				}
@@ -124,7 +126,7 @@ public class Sort {
 		for(int data:a){
 			bTree.buildTree(data);
 		}
-		bTree.OrderByIn();
+		bTree.orderByIn();
 	}
 
 	

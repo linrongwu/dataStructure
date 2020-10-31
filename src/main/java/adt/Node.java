@@ -1,4 +1,4 @@
-package ADT;
+package adt;
 
 public class Node {
 	public Node getNode() {
@@ -27,13 +27,8 @@ public class Node {
 		node = null;
 		data = 0;
 	}
-	
-	
- 	public boolean IsEmpty() {
-		return this == null? true:false;
-	}
-	
-	public Node Find(int data) {
+
+	public Node find(int data) {
 		if(this.getData()==data) {
 			return this;
 		}
@@ -47,7 +42,7 @@ public class Node {
 		return null;
 	}
 	
-	public Node FindPrevious(int data) {
+	public Node findPrevious(int data) {
 		if(this.getData()==data) {
 			return null;
 		}
@@ -63,14 +58,14 @@ public class Node {
 		return null;
 	}
 	
-	public boolean IsLast(int data) {
-		Node pNode = Find(data);
+	public boolean isLast(int data) {
+		Node pNode = find(data);
 		return null==pNode.node?true:false;
 		
 	}
 	
-	public void Insert(int data,int position) {
-		Node pNode = Find(position);
+	public void insert(int data, int position) {
+		Node pNode = find(position);
 		if(null!=pNode) {
 			Node p = new Node();
 			p.setData(data);
@@ -80,7 +75,7 @@ public class Node {
 	}
 
 	public void delete(int data) {
-		Node pf=FindPrevious(data);
+		Node pf= findPrevious(data);
 		if(null!=pf) {
 			pf.setNode(pf.getNode().getNode());
 		}
@@ -88,9 +83,9 @@ public class Node {
 
 	public static void main(String args[]) {
 		Node head = new Node();
-		head.Insert(1, 0);
-		head.Insert(2, 1);
-		head.Insert(3, 2);
+		head.insert(1, 0);
+		head.insert(2, 1);
+		head.insert(3, 2);
 		head.delete(2);
 		Node pNode = head;
 		while(null!=pNode) {

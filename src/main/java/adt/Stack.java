@@ -1,4 +1,4 @@
-package ADT;
+package adt;
 
 public class Stack {
 	private Node node;
@@ -7,7 +7,7 @@ public class Stack {
 		node=new Node();
 	}
 	
-	public Node Top() {
+	public Node top() {
 		Node p = node;
 		while(null!=p.getNode()) {
 			p=p.getNode();
@@ -15,7 +15,7 @@ public class Stack {
 		return p;
 	}
 	
-	public Node TopPre() {
+	public Node topPre() {
 		Node p = node;
 		while(null!=p.getNode().getNode()) {
 			p=p.getNode();
@@ -26,12 +26,12 @@ public class Stack {
 	public void push(int data) {
 		Node pNode = new Node();
 		pNode.setData(data);
-		Node top = Top();
+		Node top = top();
 		top.setNode(pNode);
 	}
 	
 	public void pop() {
-		Node top = TopPre();
+		Node top = topPre();
 		top.setNode(null);
 		show();
 	}

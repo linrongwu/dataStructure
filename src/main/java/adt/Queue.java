@@ -1,4 +1,4 @@
-package ADT;
+package adt;
 
 public class Queue {
 	private Node node;

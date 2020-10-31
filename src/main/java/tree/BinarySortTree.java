@@ -1,4 +1,4 @@
-package TREE;
+package tree;
 
 import java.util.Scanner;
 
@@ -34,7 +34,7 @@ public class BinarySortTree {
 	}
 
 
-	private static int MIN=-1;
+	private static final int MIN=-1;
 	private  int data;
 	private BinarySortTree lNode;
 	private BinarySortTree rNode;
@@ -45,33 +45,33 @@ public class BinarySortTree {
 		data=MIN;
 	}
 	
-	public void OrderByPre() {
+	public void orderByPre() {
 		System.out.print(this.getData());
 		if(null!=this.getlNode()) {
-		this.getlNode().OrderByPre();
+		this.getlNode().orderByPre();
 		}
 		if(null!=this.getrNode()) {
-		this.getrNode().OrderByPre();
+		this.getrNode().orderByPre();
 		}
 	}
 	
-	public void OrderByPost() {
+	public void orderByPost() {
 		if(null!=this.getlNode()) {
-		this.getlNode().OrderByPost();
+		this.getlNode().orderByPost();
 		}
 		if(null!=this.getrNode()) {
-		this.getrNode().OrderByPost();
+		this.getrNode().orderByPost();
 		}
 		System.out.print(this.getData());
 	}
 	
-	public void OrderByIn() {
+	public void orderByIn() {
 		if(null!=this.getlNode()) {
-		this.getlNode().OrderByIn();
+		this.getlNode().orderByIn();
 		}
 		System.out.println(this.getData());
 		if(null!=this.getrNode()) {
-		this.getrNode().OrderByIn();
+		this.getrNode().orderByIn();
 		}
 	}
 	
@@ -181,29 +181,34 @@ public class BinarySortTree {
 		// TODO Auto-generated method stub
 		BinarySortTree bTree=new BinarySortTree();
 		Scanner sc = new Scanner(System.in);
-		 int data = sc.nextInt();
-		 while(data!=-1) {
-			 bTree.buildTree(data);
-			 data = sc.nextInt();
-		 }
-		 bTree.OrderByIn();
-		 System.out.println("-");
-		 bTree.OrderByPost();
-		 System.out.println("-");
-		 bTree.OrderByPre();
-		 System.out.println("-");
-		 System.out.println("请问要删除哪个节点数据：输入-1结束");
-		 int deldata = sc.nextInt();
-		 while(deldata!=-1) {
-			 bTree.delNode(deldata);
-			 bTree.OrderByIn();
-			 System.out.println("-");
-			 bTree.OrderByPost();
-			 System.out.println("-");
-			 bTree.OrderByPre();
-			 System.out.println("-");
-			 deldata = sc.nextInt();
-		 }
+		try {
+            int data = sc.nextInt();
+            while(data!=-1) {
+                bTree.buildTree(data);
+                data = sc.nextInt();
+            }
+            bTree.orderByIn();
+            System.out.println("-");
+            bTree.orderByPost();
+            System.out.println("-");
+            bTree.orderByPre();
+            System.out.println("-");
+            bTree.orderByIn();
+            System.out.println("请问要删除哪个节点数据：输入-1结束");
+            int deldata = sc.nextInt();
+            while(deldata!=-1) {
+                bTree.delNode(deldata);
+                bTree.orderByIn();
+                System.out.println("-");
+                bTree.orderByPost();
+                System.out.println("-");
+                bTree.orderByPre();
+                System.out.println("-");
+                deldata = sc.nextInt();
+            }
+        }finally {
+		    sc.close();
+        }
 	}
 
 }

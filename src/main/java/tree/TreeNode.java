@@ -1,4 +1,4 @@
-package TREE;
+package tree;
 
 public class TreeNode {
 	public char getData() {
@@ -58,18 +58,18 @@ public class TreeNode {
 		return end;
 	}
 
-	public int buildTreeByPost(int last_index,String string) {
-		if(last_index<0) {
+	public int buildTreeByPost(int lastIndex,String string) {
+		if(lastIndex<0) {
 			return -1;
 		}
-		char c=string.charAt(last_index);
+		char c=string.charAt(lastIndex);
 		if(' '==c) {
-			return last_index;
+			return lastIndex;
 		}
 		this.setData(c);
 		this.setrNode(new TreeNode());
-		int rindex=this.getrNode().buildTreeByPost(last_index-1, string);
-		if(rindex==last_index-1) {
+		int rindex=this.getrNode().buildTreeByPost(lastIndex-1, string);
+		if(rindex==lastIndex-1) {
 			this.setrNode(null);
 		}
 		this.setlNode(new TreeNode());
@@ -82,31 +82,31 @@ public class TreeNode {
 	
 
 	
-	public void OrderByPre() {
+	public void orderByPre() {
 			System.out.print(this.getData());
 			if(null!=this.getlNode()) {
-			this.getlNode().OrderByPre();
+			this.getlNode().orderByPre();
 			}
 			else {
 				System.out.print("0");
 			}
 			if(null!=this.getrNode()) {
-			this.getrNode().OrderByPre();
+			this.getrNode().orderByPre();
 			}
 			else {
 				System.out.print("0");
 			}
 	}
 	
-	public void OrderByPost() {
+	public void orderByPost() {
 		if(null!=this.getlNode()) {
-		this.getlNode().OrderByPost();
+		this.getlNode().orderByPost();
 		}
 		else {
 			System.out.print("0");
 		}
 		if(null!=this.getrNode()) {
-		this.getrNode().OrderByPost();
+		this.getrNode().orderByPost();
 		}
 		else {
 			System.out.print("0");
@@ -114,16 +114,16 @@ public class TreeNode {
 		System.out.print(this.getData());
 }
 	
-	public void OrderByIn() {
+	public void orderByIn() {
 		if(null!=this.getlNode()) {
-		this.getlNode().OrderByIn();
+		this.getlNode().orderByIn();
 		}
 		else {
 			System.out.print("0");
 		}
 		System.out.print(this.getData());
 		if(null!=this.getrNode()) {
-		this.getrNode().OrderByIn();
+		this.getrNode().orderByIn();
 		}
 		else {
 			System.out.print("0");
@@ -134,18 +134,18 @@ public class TreeNode {
 		// TODO Auto-generated method stub
 		TreeNode treeNode=new TreeNode();
 		treeNode.buildTreeByPost(8, "   CB  DA");
-		treeNode.OrderByPre();
+		treeNode.orderByPre();
 		System.out.println("");
-		treeNode.OrderByPost();
+		treeNode.orderByPost();
 		System.out.println("");
-		treeNode.OrderByIn();
+		treeNode.orderByIn();
 		System.out.println("");
 		treeNode.buildTreeByPre(0, "AB C  D  ");
-		treeNode.OrderByPre();
+		treeNode.orderByPre();
 		System.out.println("");
-		treeNode.OrderByPost();
+		treeNode.orderByPost();
 		System.out.println("");
-		treeNode.OrderByIn();
+		treeNode.orderByIn();
 		
 	}
 
