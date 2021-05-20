@@ -1,6 +1,8 @@
 package adt;
-
-public class Node {
+/**
+ * @author String
+ */
+public final class Node {
 	public Node getNode() {
 		return node;
 	}
@@ -78,19 +80,6 @@ public class Node {
 		Node pf= findPrevious(data);
 		if(null!=pf) {
 			pf.setNode(pf.getNode().getNode());
-		}
-	} 
-
-	public static void main(String args[]) {
-		Node head = new Node();
-		head.insert(1, 0);
-		head.insert(2, 1);
-		head.insert(3, 2);
-		head.delete(2);
-		Node pNode = head;
-		while(null!=pNode) {
-			System.out.println(pNode.getData());
-			pNode=pNode.getNode();
 		}
 	}
 }

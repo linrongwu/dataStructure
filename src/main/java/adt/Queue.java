@@ -1,6 +1,8 @@
 package adt;
-
-public class Queue {
+/**
+ * @author String
+ */
+public final class Queue {
 	private Node node;
 	
 	public Node getNode() {
@@ -37,21 +39,6 @@ public class Queue {
 			System.out.println(p.getData());
 			p=p.getNode();
 		}
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Queue stack=new Queue();
-		stack.enQueue(1);
-		stack.show();//01
-		stack.deQueue();//0
-		System.out.println("-");
-		stack.enQueue(2);
-		stack.enQueue(3);
-		stack.show();//023
-		stack.deQueue();//03
-		System.out.println("-");
-		stack.deQueue();//0
 	}
 
 }

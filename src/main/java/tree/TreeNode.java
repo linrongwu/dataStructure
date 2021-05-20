@@ -1,7 +1,12 @@
 package tree;
-
+/**
+ * @author String
+ */
 public class TreeNode {
-	public char getData() {
+
+    public static final char EMPTY = ' ';
+
+	public int getData() {
 		return data;
 	}
 
@@ -30,7 +35,7 @@ public class TreeNode {
 	private TreeNode rNode;
 	
 	public TreeNode() {
-		this.data=' ';
+		this.data=EMPTY;
 		this.lNode=null;
 		this.rNode=null;
 	}
@@ -41,18 +46,18 @@ public class TreeNode {
 			return 0;
 		}
 		char c=string.charAt(index);
-		if (' '==c) {
+		if (EMPTY==c) {
 			return index;
 		}
 		this.setData(c);
 		this.setlNode(new TreeNode());
-		int rindex=this.getlNode().buildTreeByPre(index+1, string);
-		if(rindex==index+1) {
+		int rIndex=this.getlNode().buildTreeByPre(index+1, string);
+		if(rIndex==index+1) {
 			this.setlNode(null);
 		}
 		this.setrNode(new TreeNode());
-		int end=this.getrNode().buildTreeByPre(rindex+1, string);
-		if(end==rindex+1) {
+		int end=this.getrNode().buildTreeByPre(rIndex+1, string);
+		if(end==rIndex+1) {
 			this.setrNode(null);
 		}
 		return end;
@@ -63,18 +68,18 @@ public class TreeNode {
 			return -1;
 		}
 		char c=string.charAt(lastIndex);
-		if(' '==c) {
+		if(EMPTY==c) {
 			return lastIndex;
 		}
 		this.setData(c);
 		this.setrNode(new TreeNode());
-		int rindex=this.getrNode().buildTreeByPost(lastIndex-1, string);
-		if(rindex==lastIndex-1) {
+		int rIndex=this.getrNode().buildTreeByPost(lastIndex-1, string);
+		if(rIndex==lastIndex-1) {
 			this.setrNode(null);
 		}
 		this.setlNode(new TreeNode());
-		int end=this.getlNode().buildTreeByPost(rindex-1, string);
-		if(end==rindex-1) {
+		int end=this.getlNode().buildTreeByPost(rIndex-1, string);
+		if(end==rIndex-1) {
 			this.setlNode(null);
 		}
 		return end;
@@ -128,25 +133,5 @@ public class TreeNode {
 		else {
 			System.out.print("0");
 		}
-}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		TreeNode treeNode=new TreeNode();
-		treeNode.buildTreeByPost(8, "   CB  DA");
-		treeNode.orderByPre();
-		System.out.println("");
-		treeNode.orderByPost();
-		System.out.println("");
-		treeNode.orderByIn();
-		System.out.println("");
-		treeNode.buildTreeByPre(0, "AB C  D  ");
-		treeNode.orderByPre();
-		System.out.println("");
-		treeNode.orderByPost();
-		System.out.println("");
-		treeNode.orderByIn();
-		
 	}
-
 }

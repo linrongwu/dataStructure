@@ -1,6 +1,8 @@
 package adt;
-
-public class Stack {
+/**
+ * @author String
+ */
+public final class Stack {
 	private Node node;
 	
 	public Stack() {
@@ -43,18 +45,4 @@ public class Stack {
 			p=p.getNode();
 		}
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Stack stack=new Stack();
-		stack.push(1);
-		stack.pop();
-		System.out.println("-");
-		stack.push(2);
-		stack.push(3);
-		stack.pop();
-		System.out.println("-");
-		stack.pop();
-	}
-
 }

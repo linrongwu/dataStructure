@@ -1,9 +1,16 @@
 package tree;
 
-import java.util.Scanner;
+/**
+ * @author String
+ */
+public class BinarySortTree extends TreeNode{
 
-public class BinarySortTree {
+	private static final int MIN=-1;
+	private  int data;
+	private BinarySortTree lNode;
+	private BinarySortTree rNode;
 	
+	@Override
 	public int getData() {
 		return data;
 	}
@@ -14,6 +21,7 @@ public class BinarySortTree {
 	}
 
 
+	@Override
 	public BinarySortTree getlNode() {
 		return lNode;
 	}
@@ -24,6 +32,7 @@ public class BinarySortTree {
 	}
 
 
+	@Override
 	public BinarySortTree getrNode() {
 		return rNode;
 	}
@@ -32,12 +41,6 @@ public class BinarySortTree {
 	public void setrNode(BinarySortTree rNode) {
 		this.rNode = rNode;
 	}
-
-
-	private static final int MIN=-1;
-	private  int data;
-	private BinarySortTree lNode;
-	private BinarySortTree rNode;
 	
 	public BinarySortTree() {
 		lNode=null;
@@ -45,6 +48,7 @@ public class BinarySortTree {
 		data=MIN;
 	}
 	
+	@Override
 	public void orderByPre() {
 		System.out.print(this.getData());
 		if(null!=this.getlNode()) {
@@ -55,6 +59,7 @@ public class BinarySortTree {
 		}
 	}
 	
+	@Override
 	public void orderByPost() {
 		if(null!=this.getlNode()) {
 		this.getlNode().orderByPost();
@@ -65,6 +70,7 @@ public class BinarySortTree {
 		System.out.print(this.getData());
 	}
 	
+	@Override
 	public void orderByIn() {
 		if(null!=this.getlNode()) {
 		this.getlNode().orderByIn();
@@ -174,41 +180,5 @@ public class BinarySortTree {
 			dTree.delNode(mTree.getData());
 			dTree.setData(mTree.getData());
 		}
-		
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		BinarySortTree bTree=new BinarySortTree();
-		Scanner sc = new Scanner(System.in);
-		try {
-            int data = sc.nextInt();
-            while(data!=-1) {
-                bTree.buildTree(data);
-                data = sc.nextInt();
-            }
-            bTree.orderByIn();
-            System.out.println("-");
-            bTree.orderByPost();
-            System.out.println("-");
-            bTree.orderByPre();
-            System.out.println("-");
-            bTree.orderByIn();
-            System.out.println("请问要删除哪个节点数据：输入-1结束");
-            int deldata = sc.nextInt();
-            while(deldata!=-1) {
-                bTree.delNode(deldata);
-                bTree.orderByIn();
-                System.out.println("-");
-                bTree.orderByPost();
-                System.out.println("-");
-                bTree.orderByPre();
-                System.out.println("-");
-                deldata = sc.nextInt();
-            }
-        }finally {
-		    sc.close();
-        }
-	}
-
 }

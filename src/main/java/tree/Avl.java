@@ -1,45 +1,49 @@
 package tree;
 
-import java.util.Scanner;
-
-public class AVL {
+/**
+ * @author String
+ */
+public class Avl extends BinarySortTree{
+	private static final int HEIGHT_DIFFERENCE = 2;
+	private static final int  MIN=-1;
+	private  int data;
+	private Avl lNode;
+	private Avl rNode;
 	
+	@Override
 	public int getData() {
 		return data;
 	}
 
 
+	@Override
 	public void setData(int data) {
 		this.data = data;
 	}
 
 
-	public AVL getlNode() {
+	@Override
+	public Avl getlNode() {
 		return lNode;
 	}
 
 
-	public void setlNode(AVL lNode) {
+	public void setlNode(Avl lNode) {
 		this.lNode = lNode;
 	}
 
 
-	public AVL getrNode() {
+	@Override
+	public Avl getrNode() {
 		return rNode;
 	}
 
 
-	public void setrNode(AVL rNode) {
+	public void setrNode(Avl rNode) {
 		this.rNode = rNode;
 	}
 
-
-	private static final int  MIN=-1;
-	private  int data;
-	private AVL lNode;
-	private AVL rNode;
-
-	public int height(AVL avl) {
+	public int height(Avl avl) {
 		if (avl==null) {
 			return -1;
 		}
@@ -58,13 +62,14 @@ public class AVL {
 	}
 
 
-	public AVL() {
+	public Avl() {
 		lNode=null;
 		rNode=null;
 		data=MIN;
 		height=0;
 	}
 	
+	@Override
 	public void orderByPre() {
 		System.out.print(this.getData());
 		if(null!=this.getlNode()) {
@@ -75,6 +80,7 @@ public class AVL {
 		}
 	}
 	
+	@Override
 	public void orderByPost() {
 		if(null!=this.getlNode()) {
 		this.getlNode().orderByPost();
@@ -85,6 +91,7 @@ public class AVL {
 		System.out.print(this.getData());
 	}
 	
+	@Override
 	public void orderByIn() {
 		if(null!=this.getlNode()) {
 		this.getlNode().orderByIn();
@@ -95,6 +102,7 @@ public class AVL {
 		}
 	}
 	
+	@Override
 	public void buildTree(int data) {
 		if(this.data==MIN) {
 			this.data=data;
@@ -102,27 +110,16 @@ public class AVL {
 		}
 		if(data<this.data) {
 			if(null==this.getlNode()) {
-				this.setlNode(new AVL());
+				this.setlNode(new Avl());
 			}
 			this.getlNode().buildTree(data);
-			if((height(this.getlNode())- height(this.getrNode()))==2) {
+			if((height(this.getlNode())- height(this.getrNode()))==HEIGHT_DIFFERENCE) {
 				if(data<this.getlNode().getData()) {
 					if(findNodePre(this.getData())==null) {
-						AVL zAvl=this.getrNode();
-						AVL k1 = new AVL();
-						k1=this.getlNode();
-						this.setlNode(k1.getlNode());
-						k1.setlNode(k1.getrNode());
-						k1.setrNode(zAvl);
-						this.setrNode(k1);
-						int k2data = this.data;
-						this.data=k1.getData();
-						k1.setData(k2data);
-						k1.setHeight(Math.max(height(k1.getrNode()), height(k1.getlNode()))+1);
-						this.setHeight(Math.max(k1.getHeight(), height(this.getlNode()))+1);
+						dealWithAvlLeft();
 					}
 					else {
-						AVL dTreePre=findNodePre(this.getData());
+						Avl dTreePre=findNodePre(this.getData());
 						if(dTreePre.getData()<this.getData()) {
 							dTreePre.setrNode(singleRotateWithLeft());
 						}else {
@@ -133,21 +130,9 @@ public class AVL {
 				else {
 					if(findNodePre(this.getData())==null) {
 						this.setlNode(this.getlNode().singleRotateWithRight());
-						
-						AVL zAvl=this.getrNode();
-						AVL k1 = new AVL();
-						k1=this.getlNode();
-						this.setlNode(k1.getlNode());
-						k1.setlNode(k1.getrNode());
-						k1.setrNode(zAvl);
-						this.setrNode(k1);
-						int k2data = this.data;
-						this.data=k1.getData();
-						k1.setData(k2data);
-						k1.setHeight(Math.max(height(k1.getrNode()), height(k1.getlNode()))+1);
-						this.setHeight(Math.max(k1.getHeight(), height(this.getlNode()))+1);
+						dealWithAvlLeft();
 					}else {
-					AVL dTreePre=findNodePre(this.getData());
+					Avl dTreePre=findNodePre(this.getData());
 					if(dTreePre.getData()<this.getData()) {
 						dTreePre.setrNode(doubleRotateWithLeft());
 					}else {
@@ -161,27 +146,16 @@ public class AVL {
 
 		}else {
 			if (null==this.getrNode()) {
-				this.setrNode(new AVL());
+				this.setrNode(new Avl());
 			}
 			this.getrNode().buildTree(data);
-			if((height(this.getrNode())- height(this.getlNode()))==2) {
+			if((height(this.getrNode())- height(this.getlNode()))==HEIGHT_DIFFERENCE) {
 				if(data>=this.getrNode().getData()) {
 					if(findNodePre(this.getData())==null) {
-						AVL zAvl=this.getlNode();
-						AVL k1 = new AVL();
-						k1=this.getrNode();
-						this.setrNode(k1.getrNode());
-						k1.setrNode(k1.getlNode());
-						k1.setlNode(zAvl);
-						this.setlNode(k1);
-						int k2data = this.data;
-						this.data=k1.getData();
-						k1.setData(k2data);
-						k1.setHeight(Math.max(height(k1.getrNode()), height(k1.getlNode()))+1);
-						this.setHeight(Math.max(k1.getHeight(), height(this.getrNode()))+1);
+						dealWithAvlRight();
 					}
 					else {
-						AVL dTreePre=findNodePre(this.getData());
+						Avl dTreePre=findNodePre(this.getData());
 						if(dTreePre.getData()<this.getData()) {
 							dTreePre.setrNode(singleRotateWithRight());
 						}else {
@@ -192,22 +166,10 @@ public class AVL {
 				else {
 					if(findNodePre(this.getData())==null) {
 						this.setrNode(this.getrNode().singleRotateWithLeft());
-						
-						AVL zAvl=this.getlNode();
-						AVL k1 = new AVL();
-						k1=this.getrNode();
-						this.setrNode(k1.getrNode());
-						k1.setrNode(k1.getlNode());
-						k1.setlNode(zAvl);
-						this.setlNode(k1);
-						int k2data = this.data;
-						this.data=k1.getData();
-						k1.setData(k2data);
-						k1.setHeight(Math.max(height(k1.getrNode()), height(k1.getlNode()))+1);
-						this.setHeight(Math.max(k1.getHeight(), height(this.getrNode()))+1);
+						dealWithAvlRight();
 					}
 					else {
-					AVL dTreePre=findNodePre(this.getData());
+					Avl dTreePre=findNodePre(this.getData());
 					if(dTreePre.getData()<this.getData()) {
 						dTreePre.setrNode(doubleRotateWithRight());
 					}else {
@@ -222,17 +184,44 @@ public class AVL {
 		this.setHeight(Math.max(height(this.getrNode()), height(this.getlNode()))+1);
 	}
 
-	private AVL doubleRotateWithRight() {
+	private void dealWithAvlRight() {
+		Avl zAvl=this.getlNode();
+		Avl k1 = this.getrNode();
+		this.setrNode(k1.getrNode());
+		k1.setrNode(k1.getlNode());
+		k1.setlNode(zAvl);
+		this.setlNode(k1);
+		int k2data = this.data;
+		this.data=k1.getData();
+		k1.setData(k2data);
+		k1.setHeight(Math.max(height(k1.getrNode()), height(k1.getlNode()))+1);
+		this.setHeight(Math.max(k1.getHeight(), height(this.getrNode()))+1);
+	}
+
+	private void dealWithAvlLeft() {
+		Avl zAvl=this.getrNode();
+		Avl k1=this.getlNode();
+		this.setlNode(k1.getlNode());
+		k1.setlNode(k1.getrNode());
+		k1.setrNode(zAvl);
+		this.setrNode(k1);
+		int k2data = this.data;
+		this.data=k1.getData();
+		k1.setData(k2data);
+		k1.setHeight(Math.max(height(k1.getrNode()), height(k1.getlNode()))+1);
+		this.setHeight(Math.max(k1.getHeight(), height(this.getlNode()))+1);
+	}
+
+	private Avl doubleRotateWithRight() {
 		// TODO Auto-generated method stub
 		this.setrNode(this.getrNode().singleRotateWithLeft());
 		return this.singleRotateWithRight();
 	}
 
 
-	private AVL singleRotateWithRight() {
+	private Avl singleRotateWithRight() {
 		// TODO Auto-generated method stub
-		AVL k1 = new AVL();
-		k1=this.getrNode();
+		Avl k1=this.getrNode();
 		this.setrNode(k1.getlNode());
 		k1.setlNode(this);
 		this.height=Math.max(height(this.getrNode()), height(this.getlNode()))+1;
@@ -241,9 +230,8 @@ public class AVL {
 	}
 
 
-	public AVL singleRotateWithLeft() {
-		AVL k1 = new AVL();
-		k1=this.getlNode();
+	public Avl singleRotateWithLeft() {
+		Avl k1=this.getlNode();
 		this.setlNode(k1.getrNode());
 		k1.setrNode(this);
 		this.height=Math.max(height(this.getrNode()), height(this.getlNode()))+1;
@@ -251,13 +239,14 @@ public class AVL {
 		return k1;
 	}
 	
-	public AVL doubleRotateWithLeft() {
+	public Avl doubleRotateWithLeft() {
 		this.setlNode(this.getlNode().singleRotateWithRight());
 		 return  this.singleRotateWithLeft();
 	}
 	
-	public AVL findNode(int data) {
-		AVL bTree =this;
+	@Override
+	public Avl findNode(int data) {
+		Avl bTree =this;
 		while(bTree!=null) {
 			if (bTree.getData()>data) {
 				if (bTree.getlNode()==null) {
@@ -277,17 +266,18 @@ public class AVL {
 		return null;
 	}
 	
-	public AVL findMin(AVL bTree) {
-		AVL pTree=bTree;
+	public Avl findMin(Avl bTree) {
+		Avl pTree=bTree;
 		while(pTree.getlNode()!=null) {
 			pTree=pTree.getlNode();
 		}
 		return pTree;
 	}
 		
-	public AVL findNodePre(int data) {
-		AVL bTree =this;
-		AVL bTreePre=null;
+	@Override
+	public Avl findNodePre(int data) {
+		Avl bTree =this;
+		Avl bTreePre=null;
 		
 		while(bTree!=null) {
 			if (bTree.getData()>data&&bTree.getlNode()!=null) {
@@ -304,9 +294,10 @@ public class AVL {
 		return bTreePre;
 	}
 	
+	@Override
 	public void delNode(int data) {
-		AVL dTree=this.findNode(data);
-		AVL dTreePre=this.findNodePre(data);
+		Avl dTree=this.findNode(data);
+		Avl dTreePre=this.findNodePre(data);
 		if(null==dTree) {
 			System.out.println("It N0 In Tree");
 			return ;
@@ -333,32 +324,9 @@ public class AVL {
 			}
 		}
 		else {
-			AVL mTree=this.findMin(dTree.getrNode());
+			Avl mTree=this.findMin(dTree.getrNode());
 			dTree.delNode(mTree.getData());
 			dTree.setData(mTree.getData());
 		}
-		
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		AVL bTree=new AVL();
-		Scanner sc = new Scanner(System.in);
-		try{
-			int data = sc.nextInt();
-			while(data!=-1) {
-				bTree.buildTree(data);
-				data = sc.nextInt();
-			}
-			bTree.orderByIn();
-			System.out.println("-");
-			bTree.orderByPost();
-			System.out.println("-");
-			bTree.orderByPre();
-			System.out.println("-");
-		}finally {
-			sc.close();
-		}
-	}
-
 }
