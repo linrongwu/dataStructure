@@ -1,184 +1,131 @@
 package tree;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
  * @author String
  */
-public class BinarySortTree extends TreeNode{
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class BinarySortTree extends BinaryTree{
+	private Character data;
+	private BinarySortTree leftNode;
+	private BinarySortTree rightNode;
 
-	private static final int MIN=-1;
-	private  int data;
-	private BinarySortTree lNode;
-	private BinarySortTree rNode;
-	
-	@Override
-	public int getData() {
-		return data;
-	}
-
-
-	public void setData(int data) {
-		this.data = data;
-	}
-
-
-	@Override
-	public BinarySortTree getlNode() {
-		return lNode;
-	}
-
-
-	public void setlNode(BinarySortTree lNode) {
-		this.lNode = lNode;
-	}
-
-
-	@Override
-	public BinarySortTree getrNode() {
-		return rNode;
-	}
-
-
-	public void setrNode(BinarySortTree rNode) {
-		this.rNode = rNode;
-	}
-	
-	public BinarySortTree() {
-		lNode=null;
-		rNode=null;
-		data=MIN;
-	}
-	
-	@Override
-	public void orderByPre() {
-		System.out.print(this.getData());
-		if(null!=this.getlNode()) {
-		this.getlNode().orderByPre();
-		}
-		if(null!=this.getrNode()) {
-		this.getrNode().orderByPre();
+	/**
+	 * @param parameterData
+	 */
+	public void buildTree(String parameterData){
+		for(int i=0;i<parameterData.length();i++){
+			this.buildTree(parameterData.charAt(i));
 		}
 	}
-	
-	@Override
-	public void orderByPost() {
-		if(null!=this.getlNode()) {
-		this.getlNode().orderByPost();
-		}
-		if(null!=this.getrNode()) {
-		this.getrNode().orderByPost();
-		}
-		System.out.print(this.getData());
-	}
-	
-	@Override
-	public void orderByIn() {
-		if(null!=this.getlNode()) {
-		this.getlNode().orderByIn();
-		}
-		System.out.println(this.getData());
-		if(null!=this.getrNode()) {
-		this.getrNode().orderByIn();
-		}
-	}
-	
-	public void buildTree(int data) {
-		if(this.data==MIN) {
-			this.data=data;
+
+	/**
+	 * @param parameterData
+	 */
+	public void buildTree(char parameterData) {
+		if(null==this.data) {
+			this.data=parameterData;
 			return;
 		}
-		if(data<this.data) {
-			if(null==this.getlNode()) {
-				this.setlNode(new BinarySortTree());
+		if(parameterData<this.data) {
+			if(null==this.getLeftNode()) {
+				this.setLeftNode(new BinarySortTree());
 			}
-			this.getlNode().buildTree(data);
+			this.getLeftNode().buildTree(parameterData);
 		}else {
-			if (null==this.getrNode()) {
-				this.setrNode(new BinarySortTree());
+			if (null==this.getRightNode()) {
+				this.setRightNode(new BinarySortTree());
 			}
-			this.getrNode().buildTree(data);
+			this.getRightNode().buildTree(parameterData);
 		}
 	}
+
+	/**
+	 * @param parameterData
+	 */
+    public void delNode(char parameterData) {
+        BinarySortTree dTree=findNode(this,parameterData);
+        BinarySortTree dTreePre=findNodePre(this,parameterData);
+        if(null==dTree) {return ;}
+        if(dTree.getLeftNode()==null && dTree.getRightNode()==null) {
+            if(dTreePre.getData()<parameterData) {
+                dTreePre.setRightNode(null);
+            }else {
+                dTreePre.setLeftNode(null);
+            }
+        }else if(dTree.getLeftNode()!=null && dTree.getRightNode()==null) {
+            if(dTreePre.getData()<parameterData) {
+                dTreePre.setRightNode(dTree.getLeftNode());
+            }else {
+                dTreePre.setLeftNode(dTree.getLeftNode());
+            }
+        }else if(dTree.getLeftNode()==null && dTree.getRightNode()!=null ) {
+            if(dTreePre.getData()<parameterData) {
+                dTreePre.setRightNode(dTree.getRightNode());
+            }else {
+                dTreePre.setLeftNode(dTree.getRightNode());
+            }
+        }else {
+            BinarySortTree mTree=findMin(dTree.getRightNode());
+            dTree.delNode(mTree.getData());
+            dTree.setData(mTree.getData());
+        }
+    }
 	
-	public BinarySortTree findNode(int data) {
-		BinarySortTree bTree =this;
-		while(bTree!=null) {
-			if (bTree.getData()>data) {
-				if (bTree.getlNode()==null) {
+	public static BinarySortTree findNode(BinarySortTree bTree,char data) {
+    	BinarySortTree binarySortTree = bTree;
+		while(binarySortTree!=null) {
+			if (binarySortTree.getData()>data) {
+				if (binarySortTree.getLeftNode()==null) {
 					return null;
 				}
-				bTree=bTree.getlNode();
-			}else if (bTree.getData()<data) {
-				if (bTree.getrNode()==null) {
+				binarySortTree=binarySortTree.getLeftNode();
+			}else if (binarySortTree.getData()<data) {
+				if (binarySortTree.getRightNode()==null) {
 					return null;
 				}
-				bTree=bTree.getrNode();
-			}
-			else {
-			return bTree;
+				binarySortTree=binarySortTree.getRightNode();
+			}else {
+				return binarySortTree;
 			}
 		}
 		return null;
 	}
 	
-	public BinarySortTree findMin(BinarySortTree bTree) {
+	public static BinarySortTree findMin(BinarySortTree bTree) {
 		BinarySortTree pTree=bTree;
-		while(pTree.getlNode()!=null) {
-			pTree=pTree.getlNode();
+		while(pTree.getLeftNode()!=null) {
+			pTree=pTree.getLeftNode();
+		}
+		return pTree;
+	}
+
+	public static BinarySortTree findMax(BinarySortTree bTree) {
+		BinarySortTree pTree=bTree;
+		while(pTree.getRightNode()!=null) {
+			pTree=pTree.getRightNode();
 		}
 		return pTree;
 	}
 		
-	public BinarySortTree findNodePre(int data) {
-		BinarySortTree bTree =this;
+	public static BinarySortTree findNodePre(BinarySortTree bTree,char data) {
 		BinarySortTree bTreePre=null;
-		
-		while(bTree!=null) {
-			if (bTree.getData()>data&&bTree.getlNode()!=null) {
-				bTreePre=bTree;
-				bTree=bTree.getlNode();
-			}else if (bTree.getData()<data&&bTree.getrNode()!=null) {
-				bTreePre=bTree;
-				bTree=bTree.getrNode();
-			}
-			else {
-			return bTreePre;
+		BinarySortTree binarySortTree=bTree;
+		while(binarySortTree!=null) {
+			if (binarySortTree.getData()>data&&binarySortTree.getLeftNode()!=null) {
+				bTreePre=binarySortTree;
+				binarySortTree=binarySortTree.getLeftNode();
+			}else if (binarySortTree.getData()<data&&binarySortTree.getRightNode()!=null) {
+				bTreePre=binarySortTree;
+				binarySortTree=binarySortTree.getRightNode();
+			}else {
+			    return bTreePre;
 			}
 		}
-		return bTreePre;
+		return null;
 	}
-	
-	public void delNode(int data) {
-		BinarySortTree dTree=this.findNode(data);
-		BinarySortTree dTreePre=this.findNodePre(data);
-		if(null==dTree) {
-			System.out.println("It N0 In Tree");
-			return ;
-		}
-		if((dTree.getlNode()==null)&&(dTree.getrNode()==null)) {
-			if(dTreePre.getData()<data) {
-				dTreePre.setrNode(null);
-			}else {
-				dTreePre.setlNode(null);
-			}
-		}
-		else if((dTree.getlNode()!=null)&&(dTree.getrNode()==null)) {
-			if(dTreePre.getData()<data) {
-				dTreePre.setrNode(dTree.getlNode());
-			}else {
-				dTreePre.setlNode(dTree.getlNode());
-			}
-		}
-		else if((dTree.getlNode()==null)&&(dTree.getrNode()!=null)) {
-			if(dTreePre.getData()<data) {
-				dTreePre.setrNode(dTree.getrNode());
-			}else {
-				dTreePre.setlNode(dTree.getrNode());
-			}
-		}
-		else {
-			BinarySortTree mTree=this.findMin(dTree.getrNode());
-			dTree.delNode(mTree.getData());
-			dTree.setData(mTree.getData());
-		}
-	}
+
 }

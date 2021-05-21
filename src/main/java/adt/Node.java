@@ -1,42 +1,20 @@
 package adt;
+
+import lombok.Data;
+
 /**
  * @author String
  */
+@Data
 public final class Node {
-	public Node getNode() {
-		return node;
-	}
-
-
-	public void setNode(Node node) {
-		this.node = node;
-	}
-
-
-	public int getData() {
-		return data;
-	}
-
-
-	public void setData(int data) {
-		this.data = data;
-	}
 
 	private Node node;
-	private int data;
-	
-	public Node() {
-		node = null;
-		data = 0;
-	}
+	private Character data;
 
-	public Node find(int data) {
-		if(this.getData()==data) {
-			return this;
-		}
-		Node p = this.getNode();
+	public Node find(char parameterData) {
+		Node p = this;
 		while(null!=p) {
-			if(p.getData()==data) {
+			if(p.getData()==parameterData) {
 				return p;
 			}
 			p=p.getNode();
@@ -44,14 +22,11 @@ public final class Node {
 		return null;
 	}
 	
-	public Node findPrevious(int data) {
-		if(this.getData()==data) {
-			return null;
-		}
-		Node p = this.getNode();
+	public Node findPrevious(char parameterData) {
 		Node pF = this;
+		Node p = this.getNode();
 		while(null!=p) {
-			if(p.getData()==data) {
+			if(p.getData()==parameterData) {
 				return pF;
 			}
 			p=p.getNode();
@@ -60,26 +35,36 @@ public final class Node {
 		return null;
 	}
 	
-	public boolean isLast(int data) {
-		Node pNode = find(data);
-		return null==pNode.node?true:false;
+	public boolean isLast(char parameterData) {
+		Node pNode = find(parameterData);
+		return null != pNode && null == pNode.getNode();
 		
 	}
 	
-	public void insert(int data, int position) {
-		Node pNode = find(position);
+	public void insert(char parameterData, char positionData) {
+		Node pNode = find(positionData);
 		if(null!=pNode) {
 			Node p = new Node();
-			p.setData(data);
+			p.setData(parameterData);
 			p.setNode(pNode.getNode());
 			pNode.setNode(p);
 		}
 	}
 
-	public void delete(int data) {
-		Node pf= findPrevious(data);
+	public void delete(char parameterData) {
+		Node pf= findPrevious(parameterData);
 		if(null!=pf) {
 			pf.setNode(pf.getNode().getNode());
 		}
+	}
+
+	public String show(){
+		Node p = this;
+		StringBuilder stringBuilder = new StringBuilder();
+		while(null!=p) {
+			stringBuilder.append(p.getData());
+			p=p.getNode();
+		}
+		return stringBuilder.toString();
 	}
 }

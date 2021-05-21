@@ -1,7 +1,11 @@
 package adt;
+
+import lombok.Data;
+
 /**
  * @author String
  */
+@Data
 public final class Stack {
 	private Node node;
 	
@@ -25,24 +29,20 @@ public final class Stack {
 		return p;
 	}
 	
-	public void push(int data) {
+	public void push(char data) {
 		Node pNode = new Node();
 		pNode.setData(data);
 		Node top = top();
 		top.setNode(pNode);
 	}
 	
-	public void pop() {
+	public String pop() {
 		Node top = topPre();
 		top.setNode(null);
-		show();
+		return this.show();
 	}
 	
-	public void show() {
-		Node p = node;
-		while(null!=p) {
-			System.out.println(p.getData());
-			p=p.getNode();
-		}
+	public String show() {
+		return this.getNode().show();
 	}
 }

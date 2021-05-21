@@ -1,6 +1,7 @@
 package sort;
 
 import tree.BinarySortTree;
+import tree.BinaryTree;
 
 /**
  * @author String
@@ -131,15 +132,18 @@ public final class SortUtils {
 
 	public static void heapSort(int[] a){
 		BinarySortTree bTree=new BinarySortTree();
+		StringBuilder stringBuilder = new StringBuilder();
 		for(int data:a){
-			bTree.buildTree(data);
+			bTree.buildTree((char) data);
 		}
-		bTree.orderByIn();
+		BinaryTree.orderByIn(bTree,stringBuilder);
 	}
 
-	public static void show(int[] data) {
+	public static String show(int[] data) {
+    	StringBuilder stringBuilder = new StringBuilder();
 		for(int i=0;i<data.length;i++) {
-			System.out.println(data[i]);
+			stringBuilder.append(data[i]);
 		}
+		return stringBuilder.toString();
 	}
 }
